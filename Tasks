@@ -1,0 +1,136 @@
+
+3. Удаленный доступ
+4. Логгирование
+
+1. Список сборок
+2. Последняя собранная версия
+7. Разобраться с полем Product Name в iOS
+
+
+Полноэкранный сплеш
+Сборка приложения - Указать сертификат
+
+sudo pip3 install requests —upgrade
+sudo pip3 install python-telegram-bot --upgrade
+sudo pip3 install flask --upgrade
+sudo pip3 install sqlalchemy --upgrade
+sudo pip3 install pymysql --upgrade
+sudo pip3 install pika --upgrade
+sudo pip3 install pydrive --upgrade
+sudo pip3 install GitPython --upgrade
+
+
+!!!
+Обработка ошибок
+Тесты
+Логирование
+Изменить замену строк в файле
+
+
+???
+Удалить ненужные ресурсы
+
+
+
+"extent" : "full-screen",
+"orientation" : "portrait",
+
+"idiom" : "iphone",
+"subtype" : "667h",
+"filename" : "750x1334.png",
+"minimum-system-version" : "8.0",
+"scale" : "2x" 1x 3x
+
+1242x2208.png iphone 3x + "minimum-system-version" : "8.0", + "subtype" : "736h"
+750x1334.png iphone 2x + "subtype" : "667h" + "minimum-system-version" : "8.0"
+
+640x960-1.png - iphone x2
+640x960.png - iphone x2 + "minimum-system-version" : "7.0"
+
+640x1136-1.png - iphone x2 + "subtype" : "retina4"
+640x1136.png - iphone x2 + "minimum-system-version" : "7.0"
+
+768x1024-1.png - ipad x1
+768x1024.png - ipad x1 + "minimum-system-version" : "7.0"
+
+1536x2048-1.png - ipad x2
+1536x2048.png - ipad x2 + "minimum-system-version" : "7.0"
+
+____________________________________
+
+Build Table
+
+id
+time
+app_name
+bundle
+app_id
+is_success
+
+____________________________________
+
+IOS
++++
+logo(Json + Image)
+menulogo
+splash
+country(parser config)
+phone
+colors
+
+
+---
+КОНФИГ
+ГОРОД
+ _______________________
+AppIcon
+    AppIcon-iphone20x20@2.png
+    AppIcon-iphone20x20@3.png
+    AppIcon-iphone29x29@2.png
+    AppIcon-iphone29x29@3.png
+    AppIcon-iphone40x40@2.png
+    AppIcon-iphone40x40@3.png
+    AppIcon-iphone60x60@2.png
+    AppIcon-iphone60x60@3.png
+
+    AppIcon-ipad20x20@1.png
+    AppIcon-ipad20x20@2.png
+    AppIcon-ipad29x29@1.png
+    AppIcon-ipad29x29@2.png
+    AppIcon-ipad40x40@1.png
+    AppIcon-ipad40x40@2.png
+    AppIcon-ipad76x76@1.png
+    AppIcon-ipad76x76@2.png
+    AppIcon-ipad85.5x85.5@2.png
+__________________________________________
+
+splash background(storyboard) - ITS DIFICULT
+
+iphone
+x2
+x3
+20x20
+29x29
+40x40
+76x76
+
+ipad
+x1x2
+20x20
+29x29
+40x40
+76x76
+
+x2
+83.5x83.5
+
+_______________________________________
+
+Python 3.6
+PyLibs
+JDK 1.8
+Android SDK
+RVM
+Ruby
+Fastlane
+xCode

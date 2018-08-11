@@ -1,0 +1,119 @@
+{1, 3}
+
+  Commands: (* default)
+    download_metadata      Downloads existing metadata and stores it
+locally. This overwrites the local files.
+    download_screenshots   Downloads all existing screenshots from iTunes
+Connect and stores them in the screenshots folder
+    generate_summary       Generate HTML Summary without
+uploading/downloading anything
+    help                   Display global or [command] help documentation
+    init                   Create the initial `deliver` configuration based
+on an existing app
+    run                  * Upload metadata and binary to iTunes Connect
+    submit_build           Submit a specific build-nr for review, use
+latest for the latest build
+
+  Global Options:
+    --verbose
+    -h, --help           Display help documentation
+    -v, --version        Display version information
+
+  Options for run:
+    -u, --username STRING Your Apple ID Username (DELIVER_USERNAME)
+    -a, --app_identifier STRING The bundle identifier of your app
+(DELIVER_APP_IDENTIFIER)
+    -p, --app [VALUE]    The app ID of the app you want to use/modify
+(DELIVER_APP_ID)
+    -o, --edit_live [VALUE] Modify live metadata, this option disables ipa
+upload and screenshot upload (DELIVER_EDIT_LIVE)
+    -i, --ipa STRING     Path to your ipa file (DELIVER_IPA_PATH)
+    -c, --pkg STRING     Path to your pkg file (DELIVER_PKG_PATH)
+    -j, --platform STRING The platform to use (optional) (DELIVER_PLATFORM)
+    -m, --metadata_path STRING Path to the folder containing the metadata
+files
+    -w, --screenshots_path STRING Path to the folder containing the
+screenshots
+    --skip_binary_upload [VALUE] Skip uploading an ipa or pkg to iTunes
+Connect
+    --use_live_version [VALUE] Force usage of live version rather than edit
+version
+    --skip_screenshots [VALUE] Don't upload the screenshots
+    -z, --app_version STRING The version that should be edited or created
+    --skip_metadata [VALUE] Don't upload the metadata (e.g. title,
+description). This will still upload screenshots
+    --skip_app_version_update [VALUE] Don't update app version for
+submission
+    -f, --force [VALUE]  Skip the HTML report file verification
+    --submit_for_review [VALUE] Submit the new version for Review after
+uploading everything (DELIVER_SUBMIT_FOR_REVIEW)
+    --automatic_release [VALUE] Should the app be automatically released
+once it's approved?
+    --auto_release_date [VALUE] Date in milliseconds for automatically
+releasing on pending approval (DELIVER_AUTO_RELEASE_DATE)
+    --phased_release [VALUE] Enable the phased release feature of iTC
+    -r, --price_tier [VALUE] The price tier of this application
+    -n, --build_number STRING If set the given build number (already
+uploaded to iTC) will be used instead of the current built one
+    -g, --app_rating_config_path STRING Path to the app rating's config
+    -b, --submission_information [VALUE] Extra information for the
+submission (e.g. third party content)
+    -k, --team_id [VALUE] The ID of your iTunes Connect team if you're in
+multiple teams (DELIVER_TEAM_ID)
+    -e, --team_name STRING The name of your iTunes Connect team if you're
+in multiple teams (DELIVER_TEAM_NAME)
+    -s, --dev_portal_team_id STRING The short ID of your Developer Portal
+team, if you're in multiple teams. Different from your iTC team ID!
+(DELIVER_DEV_PORTAL_TEAM_ID)
+    -y, --dev_portal_team_name STRING The name of your Developer Portal
+team if you're in multiple teams (DELIVER_DEV_PORTAL_TEAM_NAME)
+    --itc_provider STRING The provider short name to be used with the
+iTMSTransporter to identify your team. To get provider short name run
+`pathToXcode.app/Contents/Applications/Application\
+Loader.app/Contents/itms/bin/iTMSTransporter -m provider -u 'USERNAME' -p
+'PASSWORD' -account_type itunes_connect -v off`. The short names of
+providers should be listed in the second column (DELIVER_ITC_PROVIDER)
+    --overwrite_screenshots [VALUE] Clear all previously uploaded
+screenshots before uploading the new ones (DELIVER_OVERWRITE_SCREENSHOTS)
+    -x, --run_precheck_before_submit [VALUE] Run precheck before submitting
+to app review (DELIVER_RUN_PRECHECK_BEFORE_SUBMIT)
+    -d, --precheck_default_rule_level [VALUE] The default rule level unless
+otherwise configured (DELIVER_PRECHECK_DEFAULT_RULE_LEVEL)
+    -l, --app_icon STRING Metadata: The path to the app icon
+    -q, --apple_watch_app_icon STRING Metadata: The path to the Apple Watch
+app icon
+    --copyright STRING   Metadata: The copyright notice
+    --primary_category STRING Metadata: The english name of the primary
+category (e.g. `Business`, `Books`)
+    --secondary_category STRING Metadata: The english name of the secondary
+category (e.g. `Business`, `Books`)
+    --primary_first_sub_category STRING Metadata: The english name of the
+primary first sub category (e.g. `Educational`, `Puzzle`)
+    --primary_second_sub_category STRING Metadata: The english name of the
+primary second sub category (e.g. `Educational`, `Puzzle`)
+    --secondary_first_sub_category STRING Metadata: The english name of the
+secondary first sub category (e.g. `Educational`, `Puzzle`)
+    --secondary_second_sub_category STRING Metadata: The english name of
+the secondary second sub category (e.g. `Educational`, `Puzzle`)
+    --trade_representative_contact_information [VALUE] Metadata: A hash
+containing the trade representative contact information
+    --app_review_information [VALUE] Metadata: A hash containing the review
+information
+    --description [VALUE] Metadata: The localised app description
+    --name [VALUE]       Metadata: The localised app name
+    --subtitle [VALUE]   Metadata: The localised app subtitle
+    --keywords [VALUE]   Metadata: An array of localised keywords
+    --promotional_text [VALUE] Metadata: An array of localised promotional
+texts
+    --release_notes [VALUE] Metadata: Localised release notes for this
+version
+    --privacy_url [VALUE] Metadata: Localised privacy url
+    --support_url [VALUE] Metadata: Localised support url
+    --marketing_url [VALUE] Metadata: Localised marketing url
+    --languages ARRAY    Metadata: List of languages to activate
+    --ignore_language_directory_validation [VALUE] Ignore errors when
+invalid languages are found in metadata and screeenshot directories
+(DELIVER_IGNORE_LANGUAGE_DIRECTORY_VALIDATION)
+    --precheck_include_in_app_purchases [VALUE] Should precheck check
+in-app purchases? (PRECHECK_INCLUDE_IN_APP_PURCHASES)
+

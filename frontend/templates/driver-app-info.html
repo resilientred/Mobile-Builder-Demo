@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gootax Mobile Builder</title>
+
+    <link rel="shortcut icon" href="../static/icon/favicon.ico" type="image/x-icon">
+
+    <link rel="icon" href="../static/icon/favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/styles/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/styles/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/styles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">Gootax Builder</a>
+        </div>
+
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="/index"><i class="fa fa-fw fa-home"></i> Главная</a>
+                </li>
+                <li>
+                    <a href="/app_list"><i class="fa fa-fw fa-bar-chart-o"></i> Приложения</a>
+                </li>
+                <li>
+                    <a href="/build_list"><i class="fa fa-fw fa-building-o"></i> Текущие сборки</a>
+                </li>
+                <li>
+                    <a href="/build_list"><i class="fa fa-fw fa-history"></i> История сборок</a>
+                </li>
+                <li class="active">
+                    <a href="/driver_app_list"><i class="fa fa-fw fa-history"></i> Водительские приложения</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Информация о приложении
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i> <a href="/driver_app_list">Список приложений</a>
+                        </li>
+                        <li class="active">
+                            <i class="fa fa-edit"></i> Информация о приложении
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <form role="form" action="/driver_app_update" id="saveApplication" method="post"
+                      enctype="multipart/form-data">
+                    <div class="col-lg-6">
+                        <input type="hidden" name="id" value="{{ app.id }}">
+
+                        <div class="form-group alert alert-info">
+                            <label>Изображение</label>
+                            <input type="file" name="icon" multiple>
+                            <p class="help-block">Тип: PNG, JPG. Содержание: Изображение</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Название приложения</label>
+                            <input type="text" class="form-control" name="app_name" required value="{{ app.app_name }}">
+                            <p class="help-block">Будет отображаться в списке приложений телефона. Пример: Gootax</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tenant Name</label>
+                            <input type="text" class="form-control" name="tenant_name" required
+                                   value={{ app.tenant_name }}>
+                            <p class="help-block">Уникальный номер клиента. Пример: maxim123.</p>
+                        </div>
+
+
+                         <div class="form-group">
+                            <label>Application Version</label>
+                            <input type="number" class="form-control" name="version_app" required value={{ app.version_app }}>
+                            <p class="help-block">Версия</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application Bundle for Android Application</label>
+                            <input type="text" class="form-control" name="bundle" required value={{ app.bundle }}>
+                            <p class="help-block">Уникальный идентификатор приложения Android. Пример:
+                                com.gootax.client</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL для запросов</label>
+                            <input type="text" class="form-control" name="host" required value={{ app.host }}>
+                            <p class="help-block">Адрес к Gootax Driver API. Пример:
+                                https://da2.gootax.pro:8088/v3/api</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL для запросов</label>
+                            <input type="text" class="form-control" name="new_host" required value={{ app.new_host }}>
+                            <p class="help-block">Адрес к Gootax Driver New API. Пример:
+                                https://da2.gootax.pro:8088</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL для запросов</label>
+                            <input type="text" class="form-control" name="chat_host" required value={{ app.chat_host }}>
+                            <p class="help-block">Адрес Driver Chat API. Пример:
+                                https://ch2.gootax.pro:3003</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL для запросов</label>
+                            <input type="text" class="form-control" name="geocode_host" required
+                                   value={{ app.geocode_host }}>
+                            <p class="help-block">Адрес к Gootax Client Android API. Пример:
+                                https://geo.gootax.pro/v1/autocomplete</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Push Key</label>
+                            <input type="text" class="form-control" name="push_key" required value={{ app.push_key }}>
+                            <p class="help-block">Ключ для сервиса уведомлений Android. Пример: 407168236755</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Google Android Map Key</label>
+                            <input type="text" class="form-control" name="google_map_key" required
+                                   value={{ app.google_map_key }}>
+                            <p class="help-block">Ключ для Google Maps Android. Пример:
+                                AIzaSyDtErekKTTCd7kDMPSQmMMntUvqyRJMI_Q</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Тип приложения</label>
+                            <select class="form-control" name="app_type">
+                                <option value='1' {% if 1 == app.app_type %}
+                                        selected {% endif %}>
+                                    Gootax
+                                </option>
+                                <option value='2' {% if 2 == app.app_type %}
+                                        selected {% endif %}>
+                                    Индивидуальная
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div {% if android_driver %}
+                            class="form-group alert alert-success"
+                        {% else %}
+                            class="form-group alert alert-danger"
+                        {% endif %}>>
+                            <label>Изображения для Android</label>
+                            <input type="file" name="android_driver" multiple>
+                            <p class="help-block">Тип: ZIP. Содержание: android-images</p>
+                        </div>
+
+                        <div {% if google_driver %}
+                            class="form-group alert alert-success"
+                        {% else %}
+                            class="form-group alert alert-danger"
+                        {% endif %}>>
+                            <label>Google Push JSON</label>
+                            <input type="file" name="google_driver" multiple>
+                            <p class="help-block">Тип: JSON. Содержание: android-images</p>
+                        </div>
+
+                        {% if android_driver %}
+                            <button type="button" data-toggle="modal" data-target="#buildDialog"
+                                    class="btn btn-success">Собрать приложение
+                            </button>
+                        {% else %}
+                            <div class="alert alert-info">
+                                Чтобы собрать приложение, необходимо добавить ресурсы!
+                            </div>
+                        {% endif %}
+
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Modal -->
+
+            <div class="modal fade" role="dialog" id="buildDialog">
+                <div class="modal-dialog">
+                    <form role="form" id="buildForm" name="build_form" action="/driver_app_build" method="post">
+                        <input type="hidden" name="build_type" value="android_driver">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h3 class="modal-title">Парамерты сборки</h3>
+                            </div>
+                            <input type="hidden" name="id" value="{{ app.id }}">
+                            <div class="modal-body">
+                                <input class="js-configure-project-hidden" type="hidden" name="build_type"
+                                       value='driver'/>
+
+                                <h4>Выберите необходимые действия:</h4>
+                                <div class="checkbox">
+                                    <label>
+                                        <input class="js-configure-project" type="checkbox" name="create_app"
+                                               value="true" readonly>
+                                        Клонирование проекта и применение конфигураций
+                                        <input class="js-configure-project-hidden" type="hidden" name="create_app"
+                                               value='false'/>
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="build_market" value="true">
+                                        Собрать версию для маркета
+                                        <input type="hidden" name="build_market" value='false'/>
+                                    </label>
+                                </div>
+
+                                <h4>Метаданные:</h4>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <h5>Email:</h5>
+                                            <label>
+                                                <input type="email" class="form-control" name="email" required>
+                                            </label>
+                                            <p class="help-block">Android: Email, на который будет отправлен APK
+                                                файл</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 center-block">
+                                        <div class="form-group">
+                                            <h5>Version Code:</h5>
+                                            <label>
+                                                <input type="text" class="form-control" name="version_code">
+                                            </label>
+                                            <p class="help-block">Код версии для сборки. Пример: 12 (не более 11
+                                                символов)</p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-6 center-block">
+                                        <div class="form-group">
+                                            <h5>Build Name:</h5>
+                                            <label>
+                                                <input type="text" class="form-control" name="version_name">
+                                            </label>
+                                            <p class="help-block">Имя версии для сборки. Пример: 12.1.2 (не более 11
+                                                символов)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 center-block">
+                                            <div class="form-group">
+                                                <h5>Название ветки:</h5>
+                                                <label>
+                                                    <input type="text" class="form-control" value="master"
+                                                           name="branch">
+                                                </label>
+                                                <p class="help-block">Пример: master</p>
+                                            </div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Footer content-->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Начать</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../static/styles/js/jquery.js"></script>
+x
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../static/styles/js/bootstrap.min.js"></script>
+
+<!-- Ajax submit action -->
+<script src="../static/js/driver-build.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gootax Mobile Builder</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/styles/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/styles/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../static/styles/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/styles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">Gootax Builder</a>
+
+
+        </div>
+
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="/index"><i class="fa fa-fw fa-home"></i> Главная</a>
+                </li>
+                <li>
+                    <a href="/app_list"><i class="fa fa-fw fa-bar-chart-o"></i> Приложения</a>
+                </li>
+                <li class="active">
+                    <a href="/build_list"><i class="fa fa-fw fa-building-o"></i> Текущие сборки</a>
+                </li>
+                <li>
+                    <a href="/build_list"><i class="fa fa-fw fa-history"></i> История сборок</a>
+                </li>
+                <li>
+                    <a href="/driver_app_list"><i class="fa fa-fw fa-history"></i> Водительские приложения</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Dashboard
+                        <small>Statistics Overview</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="col-sm-12 panel">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-center" scope="col">#</th>
+                        <th class="text-center" scope="col">Name</th>
+                        <th class="text-center" scope="col">Need Build</th>
+                        <th class="text-center" scope="col">Need Create</th>
+                        <th class="text-center" scope="col">Need Clear</th>
+                        <th class="text-center" scope="col">Version Code</th>
+                        <th class="text-center" scope="col">Version Name</th>
+                        <th class="text-center" scope="col">Email</th>
+                        <th class="text-center" scope="col">Build Type</th>
+                        <th class="text-center" scope="col">Time Created</th>
+                        <th class="text-center" scope="col">Status</th>
+                        <th class="text-center" scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for build in builds %}
+                    <tr>
+                        <th scope="row">{{build.priority}}</th>
+
+                        <td class="text-center">Gootax Mobile Builder</td> <!-- Name -->
+
+                        <td class="text-center">
+                            {% if build.is_build == True %}
+                                <img height="16" width="20" src="../static/icon/true_green.png" class="roundrect">
+                            {% elif build.is_build == False %}
+                                <img height="16" width="16" src="../static/icon/false_red.png" class="roundrect">
+                            {% endif %}
+                        </td> <!-- Need Build -->
+
+                        <td class="text-center">
+                            {% if build.is_create == True %}
+                                <img height="16" width="20" src="../static/icon/true_green.png" class="roundrect">
+                            {% elif build.is_create == False %}
+                                <img height="16" width="16" src="../static/icon/false_red.png" class="roundrect">
+                            {% endif %}
+                        </td> <!-- Need Create -->
+
+                        <td class="text-center">
+                            {% if build.is_clear == True %}
+                                <img height="16" width="20" src="../static/icon/true_green.png" class="roundrect">
+                            {% elif build.is_clear == False %}
+                                <img height="16" width="16" src="../static/icon/false_red.png" class="roundrect">
+                            {% endif %}
+                        </td> <!-- Need Clear -->
+
+                        <td class="text-center">{{build.version_code}}</td> <!-- Version Code -->
+
+                        <td class="text-center">{{build.version_name}}</td> <!-- Version Name -->
+
+                        <td class="text-center">{{build.email}}</td> <!-- Email -->
+
+                        <td class="text-center">{{build.build_type}}</td> <!-- Build Type -->
+
+                        <td class="text-center">{{build.time_created}}</td> <!-- Time Created -->
+
+                        <td class="text-center">
+                            {% if build.status == 0 %}
+                            <span class="center-block label label-primary">Ожидание</span>
+                            {% elif build.status == 1 %}
+                            <span class="center-block label label-warning">Выполняется</span>
+                            {% endif %}
+                        </td> <!-- Status -->
+
+                        <td class="text-center">
+                            <a href="/build_info">
+                                <img height="20" width="20" src="../static/icon/edit_green.png" class="roundrect">
+                            </a>
+
+                            <a href="/build_delete">
+                                <img height="20" width="20" src="../static/icon/close_red.png" class="roundrect">
+                            </a>
+                        </td> <!-- Фсешщты -->
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../static/styles/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../static/styles/js/bootstrap.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="../static/styles/js/plugins/morris/raphael.min.js"></script>
+<script src="../static/styles/js/plugins/morris/morris.min.js"></script>
+<script src="../static/styles/js/plugins/morris/morris-data.js"></script>
+
+</body>
+
+</html>

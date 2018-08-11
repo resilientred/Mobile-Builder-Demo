@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gootax Mobile Builder</title>
+
+    <link rel="shortcut icon" href="../static/icon/favicon.ico" type="image/x-icon">
+
+    <link rel="icon" href="../static/icon/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/styles/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/styles/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/styles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+v
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">Gootax Builder</a>
+        </div>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="/index"><i class="fa fa-fw fa-home"></i> Главная</a>
+                </li>
+                <li class="active">
+                    <a href="/app_list"><i class="fa fa-fw fa-bar-chart-o"></i> Приложения</a>
+                </li>
+                <li>
+                    <a href="/build_list"><i class="fa fa-fw fa-building-o"></i> Текущие сборки</a>
+                </li>
+                <li>
+                    <a href="/build_list"><i class="fa fa-fw fa-history"></i> История сборок</a>
+                </li>
+                <li>
+                    <a href="/driver_app_list"><i class="fa fa-fw fa-history"></i> Водительские приложения</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Информация о приложении
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i> <a href="/app_list">Список приложений</a>
+                        </li>
+                        <li class="active">
+                            <i class="fa fa-edit"></i> Информация о приложении
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger" id="#messageError" role="alert" hidden>Message</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <form role="form" action="/app_update" id="updateApplication" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ app.id }}">
+                    <div class="col-lg-6">
+
+                        <div class="form-group alert alert-info">
+                            <label>Изображение</label>
+                            <input type="file" name="icon" multiple>
+                            <p class="help-block">Тип: PNG, JPG. Содержание: Изображение</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Название приложения</label>
+                            <input type="text" class="form-control" name="app_name" value="{{ app.app_name }}" required>
+                            <p class="help-block">Будет отображаться в списке приложений телефона. Пример: Gootax</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tenant ID</label>
+                            <input type="number" class="form-control" name="tenant_id" required
+                                   value={{ app.tenant_id }}>
+                            <p class="help-block">Уникальный номер клиента. Пример: 18.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application ID</label>
+                            <input type="number" class="form-control" name="app_id" required value={{ app.app_id }}>
+                            <p class="help-block">Номер службы, привязанный к одному Tenant ID. Пример: 4</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application Bundle for Android Application</label>
+                            <input type="text" class="form-control" name="bundle" required value={{ app.bundle }}>
+                            <p class="help-block">Уникальный идентификатор приложения Android. Пример:
+                                com.gootax.client</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application Bundle for iOS Application</label>
+                            <input type="text" class="form-control" name="bundle_ios" required
+                                   value={{ app.bundle_ios }}>
+                            <p class="help-block">Уникальный идентификатор приложения iOS. Пример: com.gootax.client</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>API Key</label>
+                            <input type="text" class="form-control" name="api_key" required value={{ app.api_key }}>
+                            <p class="help-block">Секретный ключ службы. Пример: 13131313</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>URL для запросов</label>
+                            <input type="text" class="form-control" name="client_url" required
+                                   value={{ app.client_url }}>
+                            <p class="help-block">Ключ для сервиса уведомлений Android. Пример:
+                                https://ca.uatgootax.ru</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>URL для GEO запросов</label>
+                            <input type="text" class="form-control" name="geo_url" required value={{ app.geo_url }}>
+                            <p class="help-block">Адрес к Gootax Geo Android API. Пример:
+                                https://geo.gootax.pro/v1</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Push Key</label>
+                            <input type="text" class="form-control" name="push_key" required value={{ app.push_key }}>
+                            <p class="help-block">Ключ для сервиса уведомлений Android. Пример: 407168236755</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Google Android Map Key</label>
+                            <input type="text" class="form-control" name="google_map" required
+                                   value={{ app.google_map }}>
+                            <p class="help-block">Ключ для Google Maps Android. Пример:
+                                AIzaSyDtErekKTTCd7kDMPSQmMMntUvqyRJMI_Q</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Google iOS Map Key</label>
+                            <input type="text" class="form-control" name="google_map_ios" required
+                                   value={{ app.google_map_ios }}>
+                            <p class="help-block">Ключ для Google Maps iOS. Пример:
+                                AIzaSyDtErekKTTCd7kDMPSQmMMntUvqyRJMI_Q</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Yandex Key</label>
+                            <input type="text" class="form-control" name="metrica_key" required
+                                   value={{ app.metrica_key }}>
+                            <p class="help-block">Ключ для Метрики Яндекса. Пример:
+                                0dafb2f7-e9d5-480f-b0a8-d043e580fe00</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Радиус автокомплита</label>
+                            <input type="number" class="form-control" name="autocomplete" required
+                                   value={{ app.autocomplete }}>
+                            <p class="help-block">Радиус указывается в киллометрах. Пример: 40</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Радиус reverse запроса</label>
+                            <input type="text" class="form-control" name="reverse_radius" required
+                                   value={{ app.reverse_radius }}>
+                            <p class="help-block">Радиус указывается в киллометрах. Пример: 0.1</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Радиус отображения авто на карте</label>
+                            <input type="number" class="form-control" name="car_radius" required
+                                   value={{ app.car_radius }}>
+                            <p class="help-block">Радиус указывается в метрах.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Выберите страну</label>
+                            <select class="form-control" name="country">
+                                {% for country in countries %}
+                                    {% set country_cc = country['cc'] %}
+                                    <option value="{{ country['cc'] }}" {% if app.country== country_cc %}
+                                            selected {% endif %}>
+                                        {{ country['name_ru'] }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <p class="help-block">Страна блаблабла</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Цветовая схема</label>
+                            {% set colors_schema = colors %}
+                            <input type="text" class="form-control" name="theme" required value="{{ colors_schema }}">
+                            <p class="help-block">Строка в формате JSON</p>
+                        </div>
+
+
+                        <div {% if android_res %}
+                            class="form-group alert alert-success"
+                        {% else %}
+                            class="form-group alert alert-danger"
+                        {% endif %}>
+                            <label>
+                                Изображения для Android
+                            </label>
+                            <input type="file" name="android" multiple>
+                            <p class="help-block">Тип: ZIP. Содержание: android-images</p>
+                        </div>
+
+                        <div {% if google_res %}
+                            class="form-group alert alert-success"
+                        {% else %}
+                            class="form-group alert alert-danger"
+                        {% endif %}>
+                            <label>Google Service</label>
+                            <input type="file" name="google" multiple>
+                            <p class="help-block">Тип: JSON. Содержание: google-service.json</p>
+                        </div>
+
+                        <div {% if ios_res %}
+                            class="form-group alert alert-success"
+                        {% else %}
+                            class="form-group alert alert-danger"
+                        {% endif %}>
+                            <label>Изображения для iOS</label>
+                            <input type="file" name="ios" multiple>
+                            <p class="help-block">Тип: ZIP. Содержание: ios-images</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+                            <label>Конфигурация исполнителя</label>
+
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="use_photo" value="true" {% if app.use_photo== 1 %}
+                                               checked {% endif %}>Показывать фото
+                                        <input type="hidden" name="use_photo" value='false'/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" name="photo_type">
+                                    {% set driver = 'driver' %}
+                                    {% set car = 'car' %}
+                                    <option value="driver" {% if app.photo_type== driver %} selected {% endif %}>Фото
+                                        водителя
+                                    </option>
+                                    <option value="car" {% if app.photo_type== car %} selected {% endif %}>Фото
+                                        автомобиля
+                                    </option>
+                                </select>
+                                <p class="help-block">Фотография отображается при выполнении заказа</p>
+                            </div>
+
+
+                            <label>Настройки календаря</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calendars" value="true"
+                                            {% if app.use_calendars== 1 %} checked {% endif %}>Использовать
+                                    дополнительные календари
+                                    <input type="hidden" name="use_calendars" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Выберите календарь</label>
+                                <select class="form-control" name="default_calendar">
+                                    {% set gregorian = 'gregorian' %}
+                                    {% set persian = 'persian' %}
+                                    <option value="gregorian" {% if app.default_calendar== gregorian %}
+                                            selected {% endif %}>
+                                        Григорианский
+                                    </option>
+                                    <option value="persian" {% if app.default_calendar== persian %}
+                                            selected {% endif %}>
+                                        Персидский
+                                    </option>
+                                </select>
+                                <p class="help-block">Календарь используется для создания предворительных заказов</p>
+                            </div>
+
+
+                            <label>Конфигурация звонков </label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calls" value="true" {% if app.use_calls== 1 %}
+                                           checked {% endif %}>Использовать звонки
+                                    <input type="hidden" name="use_calls" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calls_office" value="true" {% if
+                                           app.use_calls_office== 1 %} checked {% endif %}>Использовать звонки в
+                                    диспетчерскую
+                                    <input type="hidden" name="use_calls_office" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calls_driver" value="true" {% if
+                                           app.use_calls_driver== 1 %} checked {% endif %}>Использовать звонки водителю
+                                    <input type="hidden" name="use_calls_driver" value='false'/>
+                                </label>
+                            </div>
+
+                            <label>Конфигурация адресов</label>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_one_address" value="true" {% if
+                                           app.use_one_address== 1 %} checked {% endif %}>Разрешить наличее одного
+                                    адреса точку для создания заказа
+                                    <input type="hidden" name="use_one_address" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="max_one_address" value="true" {% if
+                                           app.max_one_address== 1 %} checked {% endif %}>Максимум один адрес
+                                    <input type="hidden" name="max_one_address" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_search" value="true" {% if app.use_search == 1 %}
+                                           checked {% endif %}>Использовать глобальный поиск
+                                    адресов
+                                    <input type="hidden" name="use_search" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="with_show_cars" value="true"  {% if app.with_show_cars == 1 %}
+                                           checked {% endif %}>Отображать автомобили на карте
+                                    <input type="hidden" name="with_show_cars" value='false'/>
+                                </label>
+                            </div>
+
+
+
+                            <label>Уточнение адреса</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_street" value="true" {% if app.use_street== 1 %}
+                                           checked {% endif %}>Улица
+                                    <input type="hidden" name="use_street" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_porch" value="true" {% if app.use_porch== 1 %}
+                                           checked {% endif %}>Подъезд
+                                    <input type="hidden" name="use_porch" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_flat" value="true" {% if app.use_flat== 1 %}
+                                           checked {% endif %}>Квартира
+                                    <input type="hidden" name="use_flat" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_comment" value="true" {% if app.use_comment== 1 %}
+                                           checked {% endif %}>Комментарий
+                                    <input type="hidden" name="use_comment" value='false'/>
+                                </label>
+                            </div>
+
+                            <label>Панель пожеланий</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_pre_orders" value="true" {% if app.use_pre_orders==
+                                           1 %} checked {% endif %}>Использовать
+                                    предзаказы
+                                    <input type="hidden" name="use_pre_orders" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_wishes" value="true" {% if app.use_wishes== 1 %}
+                                           checked {% endif %}>Пожелания
+                                    <input type="hidden" name="use_wishes" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_detail" value="true" {% if app.use_detail== 1 %}
+                                           checked {% endif %}>Детали адреса
+                                    <input type="hidden" name="use_detail" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <label>Конфигурация оплаты </label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_cash" value="true" {% if
+                                           app.use_payment_cash== 1 %} checked {% endif %}>Резрешить оплату
+                                    наличными
+                                    <input type="hidden" name="use_payment_cash" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_card" value="true" {% if
+                                           app.use_payment_card== 1 %} checked {% endif %}>Резрешить оплату
+                                    банковскими картами
+                                    <input type="hidden" name="use_payment_card" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_corp" value="true" {% if
+                                           app.use_payment_corp== 1 %} checked {% endif %}>Резрешить оплату через
+                                    компанию
+                                    <input type="hidden" name="use_payment_corp" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_bonus" value="true" {% if
+                                           app.use_payment_bonus== 1 %} checked {% endif %}>Разрешить оплату
+                                    бонусами
+                                    <input type="hidden" name="use_payment_bonus" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_personal" value="true" {% if
+                                           app.use_payment_personal== 1 %} checked {% endif %}>Разрешить оплату с
+                                    персонального баланаса
+                                    <input type="hidden" name="use_payment_personal" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="show_company_balance" value="true" {% if
+                                           app.show_company_balance== 1 %} checked {% endif %}>Отображать
+                                    колличество бонусов компании
+                                    <input type="hidden" name="show_company_balance" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <label>Дополнительно</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="is_full_splash" value="true"
+                                            {% if app.is_full_splash== 1 %}
+                                           checked
+                                            {% endif %}>Сплеш на весь экран
+                                    <input type="hidden" name="is_full_splash" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="is_demo" value="true" {% if app.is_demo== 1 %} checked
+                                    {% endif %}>Демо версия
+                                    <input type="hidden" name="is_demo" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_cars" value="true" {% if app.use_cars== 1 %}
+                                           checked {% endif %}>Использовать кастомные
+                                    иконки машин
+                                    <input type="hidden" name="use_cars" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_country" value="true" {% if
+                                           app.use_country== 1 %} checked {% endif %}>Разрешить выбор страны
+                                    при авторизации
+                                    <input type="hidden" name="use_country" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_review_block" value="true" {% if
+                                           app.use_review_block== 1 %} checked {% endif %}>Запретить отзывы без
+                                    комментария
+                                    с рейтингом ниже 4
+                                    <input type="hidden" name="use_review_block" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_referral" value="true"
+                                            {% if app.use_referral== 1 %} checked {% endif %}>
+                                    Включить реферальную систему
+                                    <input type="hidden" name="use_referral" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="with_edit_order" value="true" {% if
+                                           app.with_edit_order== 1 %} checked {% endif %}>
+                                    Использовать редактирование заказа
+                                    <input type="hidden" name="with_edit_order" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="shown_client_id" value="true" {% if
+                                           app.shown_client_id== 1 %} checked {% endif %}>
+                                    Показывать идентификатор в профиле клиента
+                                    <input type="hidden" name="shown_client_id" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_review_detail" value="true" {% if
+                                           app.use_review_detail== 1 %} checked {% endif %}>
+                                    Использовать отзывы с описанием
+                                    <input type="hidden" name="use_review_detail" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_review_for_rejected" value="true" {% if
+                                           app.use_review_for_rejected== 1 %} checked {% endif %}>
+                                    Разрешить оставлять отзыв для отменного заказа
+                                    <input type="hidden" name="use_review_for_rejected" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_public_transport" value="true" {% if
+                                           app.use_public_transport== 1 %} checked {% endif %}>
+                                    Отображать вкладку публичного транспорта
+                                    <input type="hidden" name="use_public_transport" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_web_application" value="true" {% if
+                                           app.use_web_application== 1 %} checked {% endif %}>
+                                    Разрешить дополнительный веб экран
+                                    <input type="hidden" name="use_web_application" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Заголовок для веб-экрана</label>
+                                <input type="text" class="form-control" name="web_application_title"
+                                       value={{ app.web_application_title }}>
+                                <p class="help-block">Заголовок для веб-экрана</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ссылка для веб-экрана</label>
+                                <input type="text" class="form-control" name="web_application_url"
+                                       value={{ app.web_application_url }}>
+                                <p class="help-block">Ссылка для веб-экрана</p>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_profile_data" value="true" {% if
+                                           app.use_profile_data== 1 %} checked {% endif %}>
+                                    Обязательно для заполнения данные пользователя
+                                    <input type="hidden" name="use_profile_data" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_multi_callcost" value="true" {% if
+                                           app.use_multi_callcost == 1 %} checked {% endif %}>
+                                    Использовать расчет цены для нескольких тарифов
+                                    <input type="hidden" name="use_multi_callcost" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_courier_form" value="true" {% if
+                                           app.use_courier_form == 1 %} checked {% endif %}>
+                                    Использовать расширенное уточнение для заказа для работы курьеров?
+                                    <input type="hidden" name="use_courier_form" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="is_let_reject_after_assigned" value="true" {% if
+                                           app.is_let_reject_after_assigned == 1 %} checked {% endif %}>
+                                    Позволить отменять заказ, после того, как водитель приехал на место посадки
+                                    <input type="hidden" name="is_let_reject_after_assigned" value='false'/>
+                                </label>
+                            </div>
+
+                            <label>Карты</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_google" value="true"
+                                            {% if app.use_google== 1 %}
+                                           checked
+                                            {% endif %}>Использовать Google Map
+                                    <input type="hidden" name="use_google" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_google_hybrid" value="true"
+                                            {% if app.use_google_hybrid== 1 %}
+                                           checked
+                                            {% endif %}>Использовать Google Hybrid Map
+                                    <input type="hidden" name="use_google_hybrid" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_yandex_map" value="true"
+                                            {% if app.use_yandex_map== 1 %}
+                                           checked
+                                            {% endif %}>Использовать Yandex Map
+                                    <input type="hidden" name="use_yandex_map" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_osm_map" value="true"
+                                            {% if app.use_osm_map== 1 %}
+                                           checked
+                                            {% endif %}>Использовать Osm Map
+                                    <input type="hidden" name="use_osm_map" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_gis_map" value="true"
+                                            {% if app.use_gis_map== 1 %}
+                                           checked
+                                            {% endif %}>Использовать Gis Map
+                                    <input type="hidden" name="use_gis_map" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Выберите карту по умолчанию</label>
+                                <select class="form-control" name="default_map">
+                                    {% set google = 'google' %}
+                                    {% set yandex = 'yandex' %}
+                                    {% set gis = 'gis' %}
+                                    {% set google_hybrid = 'google_hybrid' %}
+                                    {% set osm = 'osm' %}
+                                    <option value="google" {% if app.default_map== google %}
+                                            selected {% endif %}>
+                                        Google Map
+                                    </option>
+                                    <option value="yandex" {% if app.default_map== yandex %}
+                                            selected {% endif %}>
+                                        Yandex Map
+                                    </option>
+                                    <option value="gis" {% if app.default_map== gis %}
+                                            selected {% endif %}>
+                                        Gis Map
+                                    </option>
+                                    <option value="google_hybrid" {% if app.default_map== google_hybrid %}
+                                            selected {% endif %}>
+                                        Google Hybrid Map
+                                    </option>
+                                    <option value="osm" {% if app.default_map== osm %}
+                                            selected {% endif %}>
+                                        Osm Map
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Выберите язык по умолчанию</label>
+                                <select class="form-control" name="default_language">
+                                    {% set en = 'en' %}
+                                    {% set ru = 'ru' %}
+                                    {% set av = 'av' %}
+                                    {% set az = 'az' %}
+                                    {% set fa = 'fa' %}
+                                    {% set ka = 'ka' %}
+                                    {% set uz = 'uz' %}
+                                    {% set tk = 'tk' %}
+                                    {% set it = 'it' %}
+                                    {% set me = 'me' %}
+                                    {% set de = 'de' %}
+                                    {% set sr = 'sr' %}
+                                    {% set tg = 'tg' %}
+                                    {% set ar = 'ar' %}
+                                    {% set ky = 'ky' %}
+                                    {% set hy = 'hy' %}
+                                    <option value='en' {% if en in app.default_language %}
+                                            selected {% endif %}>
+                                        Английский
+                                    </option>
+                                    <option value='ru' {% if ru in app.default_language %}
+                                            selected {% endif %}>
+                                        Русский
+                                    </option>
+                                    <option value='av' {% if av in app.default_language %}
+                                            selected {% endif %}>
+                                        Узбекский(Кириллица)
+                                    </option>
+                                    <option value='az' {% if az in app.default_language %}
+                                            selected {% endif %}>
+                                        Азербайджанский
+                                    </option>
+                                    <option value='fa' {% if fa in app.default_language %}
+                                            selected {% endif %}>
+                                        Персидский
+                                    </option>
+                                    <option value='ka' {% if ka in app.default_language %}
+                                            selected {% endif %}>
+                                        Грузинский
+                                    </option>
+                                    <option value='uz' {% if uz in app.default_language %}
+                                            selected {% endif %}>
+                                        Узбекский
+                                    </option>
+                                    <option value='tk' {% if tk in app.default_language %}
+                                            selected {% endif %}>
+                                        Туркменский
+                                    </option>
+                                    <option value='it' {% if it in app.default_language %}
+                                            selected {% endif %}>
+                                        Итальянский
+                                    </option>
+                                    <option value='me' {% if me in app.default_language %}
+                                            selected {% endif %}>
+                                        Черногорский
+                                    </option>
+                                    <option value='de' {% if de in app.default_language %}
+                                            selected {% endif %}>
+                                        Немецкий
+                                    </option>
+                                    <option value='sr' {% if sr in app.default_language %}
+                                            selected {% endif %}>
+                                        Сербский
+                                    </option>
+                                    <option value='tg' {% if tg in app.default_language %}
+                                            selected {% endif %}>
+                                        Туркменский
+                                    </option>
+                                    <option value='ar' {% if ar in app.default_language %}
+                                            selected {% endif %}>
+                                        Арабский
+                                    </option>
+                                    <option value='ky' {% if ky in app.default_language %}
+                                            selected {% endif %}>
+                                        Киргизский
+                                    </option>
+                                    <option value='hy' {% if hy in app.default_language %}
+                                            selected {% endif %}>
+                                        Армянский
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Выберите языки</label> <br>
+                                {% set en = 'en' %}
+                                {% set ru = 'ru' %}
+                                {% set av = 'av' %}
+                                {% set az = 'az' %}
+                                {% set fa = 'fa' %}
+                                {% set ka = 'ka' %}
+                                {% set uz = 'uz' %}
+                                {% set tk = 'tk' %}
+                                {% set it = 'it' %}
+                                {% set me = 'me' %}
+                                {% set de = 'de' %}
+                                {% set sr = 'sr' %}
+                                {% set tg = 'tg' %}
+                                {% set ar = 'ar' %}
+                                {% set hy = 'hy' %}
+                                {% set ky = 'ky' %}
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value='en' {% if en in app.lang %}
+                                           checked {% endif %}>Английский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="ru" {% if ru in app.lang %}
+                                           checked {% endif %}>Русский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="ar" {% if ar in app.lang %}
+                                           checked {% endif %}>Арабский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="tg" {% if tg in app.lang %}
+                                           checked {% endif %}>Таджикский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="az" {% if az in app.lang %}
+                                           checked {% endif %}>Азербайджанский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="av" {% if av in app.lang %}
+                                           checked {% endif %}>Узбекский(Кириллица)
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="fa" {% if fa in app.lang %}
+                                           checked {% endif %}>Персидский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="ka" {% if ka in app.lang %}
+                                           checked {% endif %}>Грузинский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="uz" {% if uz in app.lang %}
+                                           checked {% endif %}>Узбекский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="tk" {% if tk in app.lang %}
+                                           checked {% endif %}>Туркменский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="me" {% if me in app.lang %}
+                                           checked {% endif %}>Черногорский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="it" {% if it in app.lang %}
+                                           checked {% endif %}>Итальянский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="de" {% if de in app.lang %}
+                                           checked {% endif %}>Немецкий
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="sr" {% if sr in app.lang %}
+                                           checked {% endif %}>Сербский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="ky" {% if ky in app.lang %}
+                                           checked {% endif %}>Киргизский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="hy" {% if hy in app.lang %}
+                                           checked {% endif %}>Армянский
+                                </label>
+                            </div>
+
+                            {% if (android_res and google_res) or ios_res %}
+                                <button type="button" data-toggle="modal" data-target="#buildDialog"
+                                        class="btn btn-success">Собрать приложение
+                                </button>
+                            {% else %}
+                                <div class="alert alert-info">
+                                    Чтобы собрать приложение, необходимо добавить ресурсы, хотя бы для одной платформы!
+                                </div>
+                            {% endif %}
+
+                            <button type="submit" class="btn btn-primary">Обновить</button>
+
+                            <button type="button" data-toggle="modal" data-target="#deleteDialog"
+                                    class="btn btn-danger">Удалить
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Modal -->
+
+                <div class="modal fade" role="dialog" id="buildDialog">
+                    <div class="modal-dialog">
+                        <form role="form" id="buildForm" name="build_form" action="/app_build" method="post">
+                            <input type="hidden" name="id" value="{{ app.id }}">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h3 class="modal-title">Парамерты сборки</h3>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    {% if not android_res or not google_res %}
+                                        <div class="alert alert-info">
+                                            Чтобы собрать Android приложение, необходимо добавить ресурсы!
+                                        </div>
+                                    {% elif not ios_res %}
+                                        <div class="alert alert-info">
+                                            Чтобы собрать iOS приложение, необходимо добавить ресурсы!
+                                        </div>
+                                    {% endif %}
+
+                                    <h4>Выберите OS:</h4>
+                                    <!--Radio group-->
+                                    {% if ios_res %}
+                                        <div class="radio">
+                                            <label class="radio"><input type="radio" name="build_type" value="ios"
+                                                                        required>
+                                                Приложение для iOS
+                                            </label>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if android_res and google_res %}
+                                        <div class="radio">
+                                            <label class="radio"><input type="radio" name="build_type" value="android"
+                                                                        required>
+                                                Приложение для Android
+                                            </label>
+                                        </div>
+                                    {% endif %}
+                                    <!--Radio group-->
+
+                                    <h4>Выберите необходимые действия:</h4>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input class="js-configure-project" type="checkbox" name="create_app"
+                                                   value="true" readonly>
+                                            Клонирование проекта и применение конфигураций
+                                            <input class="js-configure-project-hidden" type="hidden" name="create_app"
+                                                   value='false'/>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="build_market" value="true">
+                                            Собрать версию для маркета
+                                            <input type="hidden" name="build_market" value='false'/>
+                                        </label>
+                                    </div>
+
+                                    <h4>Метаданные:</h4>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <h5>Email:</h5>
+                                                <label>
+                                                    <input type="email" class="form-control" name="email" required>
+                                                </label>
+                                                <p class="help-block">Android: Email, на который будет отправлен APK
+                                                    файл</p>
+                                                <p class="help-block">iOS: Apple ID для привязки приложения</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 center-block">
+                                            <div class="form-group">
+                                                <h5>Version Code:</h5>
+                                                <label>
+                                                    <input type="text" class="form-control" name="version_code">
+                                                </label>
+                                                <p class="help-block">Код версии для сборки. Пример: 12 (не более 11
+                                                    символов)</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-6 center-block">
+                                            <div class="form-group">
+                                                <h5>Build Name:</h5>
+                                                <label>
+                                                    <input type="text" class="form-control" name="version_name">
+                                                </label>
+                                                <p class="help-block">Имя версии для сборки. Пример: 12.1.2 (не более 11
+                                                    символов)</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-6 center-block js-build-company">
+                                            <div class="form-group">
+                                                <h5>Название орагизации:</h5>
+                                                <label>
+                                                    <input type="text" class="form-control" value="Gootax OOO"
+                                                           name="ios_company_name">
+                                                </label>
+                                                <p class="help-block">Пример: Gootax OOO</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-6 center-block">
+                                            <div class="form-group">
+                                                <h5>Название ветки:</h5>
+                                                <label>
+                                                    <input type="text" class="form-control" value="master"
+                                                           name="branch">
+                                                </label>
+                                                <p class="help-block">Пример: master</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 center-block js-build-email">
+                                            <div class="form-group">
+                                                <h5>Apple ID:</h5>
+                                                <label>
+                                                    <input type="text" class="form-control"
+                                                           value="gootax.mobile@gmail.com" name="build_email">
+                                                </label>
+                                                <p class="help-block">необходим для выгрузки с чужого аккаунта</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 center-block js-build-company_id">
+                                            <div class="form-group">
+                                                <h5>Team ID:</h5>
+                                                <label>
+                                                    <input type="text" class="form-control" value="VKNT3Z3EBT"
+                                                           name="company_id">
+                                                </label>
+                                                <p class="help-block">Необходим для выгрузки с чужого аккаунта</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Footer content-->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Начать</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal fade" role="dialog" id="deleteDialog">
+                    <div class="modal-dialog">
+                        <form role="form" id="deleteForm" name="build_form" action="/app_delete" method="post">
+                            <input type="hidden" name="id" value="{{ app.id }}">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h3 class="modal-title">Вы действительно хотите удалить {{ app.app_name }}?</h3>
+                                </div>
+
+                                <!-- Footer content-->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../static/styles/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../static/styles/js/bootstrap.min.js"></script>
+
+<!-- Ajax submit action -->
+<script src="../static/js/build.js"></script>
+
+</body>
+
+</html>

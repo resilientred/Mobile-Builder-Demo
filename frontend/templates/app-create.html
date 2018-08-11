@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gootax Mobile Builder</title>
+
+    <link rel="shortcut icon" href="../static/icon/favicon.ico" type="image/x-icon">
+
+    <link rel="icon" href="../static/icon/favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/styles/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/styles/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/styles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">Gootax Builder</a>
+        </div>
+
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="/index"><i class="fa fa-fw fa-home"></i> Главная</a>
+                </li>
+                <li class="active">
+                    <a href="/app_list"><i class="fa fa-fw fa-bar-chart-o"></i> Приложения</a>
+                </li>
+                <li>
+                    <a href="/build_list"><i class="fa fa-fw fa-building-o"></i> Текущие сборки</a>
+                </li>
+                <li>
+                    <a href="/build_list"><i class="fa fa-fw fa-history"></i> История сборок</a>
+                </li>
+                <li>
+                    <a href="/driver_app_list"><i class="fa fa-fw fa-history"></i> Водительские приложения</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Информация о приложении
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i> <a href="/app_list">Список приложений</a>
+                        </li>
+                        <li class="active">
+                            <i class="fa fa-edit"></i> Информация о приложении
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <form role="form" action="/app_save" id="saveApplication" method="post" enctype="multipart/form-data">
+                    <div class="col-lg-6">
+
+
+                        <div class="form-group">
+                            <label>Название приложения</label>
+                            <input type="text" class="form-control" name="app_name" required>
+                            <p class="help-block">Будет отображаться в списке приложений телефона. Пример: Gootax</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tenant ID</label>
+                            <input type="number" class="form-control" name="tenant_id" required>
+                            <p class="help-block">Уникальный номер клиента. Пример: 18.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application ID</label>
+                            <input type="number" class="form-control" name="app_id" required>
+                            <p class="help-block">Номер службы, привязанный к одному Tenant ID. Пример: 4</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application Bundle for Android Application</label>
+                            <input type="text" class="form-control" name="bundle" value="com.gootax." required>
+                            <p class="help-block">Уникальный идентификатор приложения Android. Пример:
+                                com.gootax.client</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application Bundle for iOS Application</label>
+                            <input type="text" class="form-control" name="bundle_ios" value="com.gootax." required>
+                            <p class="help-block">Уникальный идентификатор приложения iOS. Пример: com.gootax.client</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>API Key</label>
+                            <input type="text" class="form-control" name="api_key" required>
+                            <p class="help-block">Секретный ключ службы. Пример: 13131313</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL для запросов</label>
+                            <input type="text" class="form-control" name="client_url"
+                                   value="https://ca2.gootax.pro:8089" required>
+                            <p class="help-block">Адрес к Gootax Client Android API. Пример:
+                                https://ca.uatgootax.ru</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL для GEO запросов</label>
+                            <input type="text" class="form-control" name="geo_url" value="https://geo.gootax.pro/v1"
+                                   required>
+                            <p class="help-block">Адрес к Gootax Geo Android API. Пример:
+                                https://geo.gootax.pro/v1</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Push Key</label>
+                            <input type="text" class="form-control" name="push_key" required>
+                            <p class="help-block">Ключ для сервиса уведомлений Android. Пример: 407168236755</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Google Android Map Key</label>
+                            <input type="text" class="form-control" name="google_map" required>
+                            <p class="help-block">Ключ для Google Maps Android. Пример:
+                                AIzaSyDtErekKTTCd7kDMPSQmMMntUvqyRJMI_Q</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Google iOS Map Key</label>
+                            <input type="text" class="form-control" name="google_map_ios" required>
+                            <p class="help-block">Ключ для Google Maps iOS. Пример:
+                                AIzaSyDtErekKTTCd7kDMPSQmMMntUvqyRJMI_Q</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Yandex Key</label>
+                            <input type="text" class="form-control" name="metrica_key" required>
+                            <p class="help-block">Ключ для Метрики Яндекса. Пример:
+                                0dafb2f7-e9d5-480f-b0a8-d043e580fe00</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Радиус автокомплита</label>
+                            <input type="number" class="form-control" name="autocomplete" required value="40">
+                            <p class="help-block">Радиус указывается в киллометрах. Пример: 40</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Радиус reverse</label>
+                            <input type="text" class="form-control" name="reverse_radius" required value="40">
+                            <p class="help-block">Радиус указывается в киллометрах. Пример: 0.1</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Радиус отображения авто на карте</label>
+                            <input type="number" class="form-control" name="car_radius" required value="3000">
+                            <p class="help-block">Радиус указывается в метрах.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Выберите страну</label>
+                            <select class="form-control" name="country">
+                                {% for country in countries %}
+                                    <option value="{{ country['cc'] }}">{{ country['name_ru'] }}</option>
+                                {% endfor %}
+                            </select>
+                            <p class="help-block">Страна блаблабла</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Цветовая схема</label>
+                            <input type="text" class="form-control" name="theme" required>
+                            <p class="help-block">Строка в формате JSON</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Изображения для Android и iOS</label>
+                            <input type="file" name="images" multiple>
+                            <p class="help-block">Тип: ZIP. Содержание: android-images</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Google Service</label>
+                            <input type="file" name="google" multiple>
+                            <p class="help-block">Тип: JSON. Содержание: google-service.json</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+                            <label>Конфигурация исполнителя</label>
+
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="use_photo" value="true" checked>Показывать фото
+                                        <input type="hidden" name="use_photo" value='false'/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" name="photo_type">
+                                    <option value="driver">Фото водителя</option>
+                                    <option value="car">Фото автомобиля</option>
+                                </select>
+                                <p class="help-block">Отображается во время заказа</p>
+                            </div>
+
+
+                            <label>Настройки календаря</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calendars" value="true">Использовать
+                                    дополнительные календари
+                                    <input type="hidden" name="use_calendars" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Выберите календарь</label>
+                                <select class="form-control" name="default_calendar">
+                                    <option value="gregorian">Григорианский</option>
+                                    <option value="persian">Персидский</option>
+                                </select>
+                                <p class="help-block">Страна блаблабла</p>
+                            </div>
+
+
+                            <label>Конфигурация звонков </label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calls" value="true" checked>Использовать звонки
+                                    <input type="hidden" name="use_calls" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calls_office" value="true" checked>Использовать
+                                    звонки в
+                                    диспетчерскую
+                                    <input type="hidden" name="use_calls_office" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_calls_driver" value="true" checked>Использовать
+                                    звонки водителю
+                                    <input type="hidden" name="use_calls_driver" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <label>Конфигурация адресов</label>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_one_address" value="true" checked>Разрешить наличее
+                                    одного
+                                    адреса точку для создания заказа
+                                    <input type="hidden" name="use_one_address" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_search" value="true">Использовать глобальный поиск
+                                    адресов
+                                    <input type="hidden" name="use_search" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="max_one_address" value="true" checked>Максимум один
+                                    адрес
+                                    <input type="hidden" name="max_one_address" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="with_edit_order" value="true" checked>Использовать
+                                    редактирование заказа
+                                    <input type="hidden" name="with_edit_order" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="with_show_cars" value="true" checked>Отображать автомобили на карте
+                                    <input type="hidden" name="with_show_cars" value='false'/>
+                                </label>
+                            </div>
+
+                            <label>Уточнение адреса</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_street" value="true" checked>Улица
+                                    <input type="hidden" name="use_street" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_porch" value="true" checked>Подъезд
+                                    <input type="hidden" name="use_porch" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_flat" value="true" checked>Квартира
+                                    <input type="hidden" name="use_flat" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_comment" value="true" checked>Комментарий
+                                    <input type="hidden" name="use_comment" value='false'/>
+                                </label>
+                            </div>
+
+                            <label>Панель пожеланий</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_pre_orders" value="true" checked>Использовать
+                                    предзаказы
+                                    <input type="hidden" name="use_pre_orders" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_wishes" value="true" checked>Пожелания
+                                    <input type="hidden" name="use_wishes" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_detail" value="true" checked>Детали адреса
+                                    <input type="hidden" name="use_detail" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <label>Конфигурация оплаты </label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_cash" value="true" checked>Резрешить оплату
+                                    наличными
+                                    <input type="hidden" name="use_payment_cash" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_card" value="true" checked>Резрешить оплату
+                                    банковскими картами
+                                    <input type="hidden" name="use_payment_card" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_corp" value="true" checked>Резрешить оплату
+                                    через
+                                    компанию
+                                    <input type="hidden" name="use_payment_corp" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_bonus" value="true" checked>Разрешить
+                                    оплату
+                                    бонусами
+                                    <input type="hidden" name="use_payment_bonus" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_payment_personal" value="true" checked>Разрешить
+                                    оплату с
+                                    персонального баланаса
+                                    <input type="hidden" name="use_payment_personal" value='false'/>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="show_company_balance" value="true" checked>Отображать
+                                    колличество бонусов компании
+                                    <input type="hidden" name="show_company_balance" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <label>Дополнительно</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="is_full_splash" value="true">Сплеш на весь экран
+                                    <input type="hidden" name="is_full_splash" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="is_demo" value="true">Демо версия
+                                    <input type="hidden" name="is_demo" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_cars" value="true">Использовать кастомные
+                                    иконки машин
+                                    <input type="hidden" name="use_cars" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_country" value="true" checked>Разрешить выбор
+                                    страны
+                                    при авторизации
+                                    <input type="hidden" name="use_country" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_review_block" value="true" checked>Запретить отзывы
+                                    без
+                                    комментария
+                                    с рейтингом ниже 4
+                                    <input type="hidden" name="use_review_block" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_referral" value="true" checkedc>Включить
+                                    реферальную систему
+                                    <input type="hidden" name="use_referral" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="shown_client_id" value="true" checkedc>Показывать
+                                    идентификатор в профиле клиента
+                                    <input type="hidden" name="shown_client_id" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_review_detail" value="true" checkedc>Использовать
+                                    отзывы с описанием
+                                    <input type="hidden" name="use_review_detail" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_review_for_rejected" value="true" checkedc>
+                                    Разрешить оставлять отзыв для отменного заказа
+                                    <input type="hidden" name="use_review_for_rejected" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_public_transport" value="true">
+                                    Отображать вкладку публичного транспорта
+                                    <input type="hidden" name="use_public_transport" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_web_application" value="true">
+                                    Разрешить дополнительный веб экран
+                                    <input type="hidden" name="use_web_application" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Заголовок для веб-экрана</label>
+                                <input type="text" class="form-control" name="web_application_title" required
+                                       value="Отсутствует">
+                                <p class="help-block">Заголовок для веб-экрана</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ссылка для веб-экрана</label>
+                                <input type="text" class="form-control" name="web_application_url" required
+                                       value="Отсутствует">
+                                <p class="help-block">Ссылка для веб-экрана</p>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_profile_data" value="true">
+                                    Обязательно для заполнения данные пользователя
+                                    <input type="hidden" name="use_profile_data" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_multi_callcost" value="true">
+                                    Использовать расчет цены для нескольких тарифов
+                                    <input type="hidden" name="use_multi_callcost" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_courier_form" value="true">
+                                    Использовать расширенное уточнение для заказа для работы курьеров?
+                                    <input type="hidden" name="use_courier_form" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="is_let_reject_after_assigned" value="true">
+                                    Позволить отменять заказ, после того, как водитель приехал на место посадки
+                                    <input type="hidden" name="is_let_reject_after_assigned" value='false'/>
+                                </label>
+                            </div>
+
+                            <label>Карты</label>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_google" value="true">
+                                    Использовать Google Map
+                                    <input type="hidden" name="use_google" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_google_hybrid" value="true">
+                                    Использовать Google Hybrid Map
+                                    <input type="hidden" name="use_google_hybrid" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_yandex_map" value="true">
+                                    Использовать Yandex Map
+                                    <input type="hidden" name="use_yandex_map" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_osm_map" value="true">
+                                    Использовать Osm Map
+                                    <input type="hidden" name="use_osm_map" value='false'/>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="use_gis_map" value="true">
+                                    Использовать Gis Map
+                                    <input type="hidden" name="use_gis_map" value='false'/>
+                                </label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Выберите карту по умолчанию</label>
+                                <select class="form-control" name="default_map">
+                                    {% set google = 'google' %}
+                                    {% set yandex = 'yandex' %}
+                                    {% set gis = 'gis' %}
+                                    {% set google_hybrid = 'google_hybrid' %}
+                                    {% set osm = 'osm' %}
+                                    <option value="google">
+                                        Google Map
+                                    </option>
+                                    <option value="yandex">
+                                        Yandex Map
+                                    </option>
+                                    <option value="gis">
+                                        Gis Map
+                                    </option>
+                                    <option value="google_hybrid">
+                                        Google Hybrid Map
+                                    </option>
+                                    <option value="osm">
+                                        Osm Map
+                                    </option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Выберите язык по умолчанию</label>
+                                <select class="form-control" name="default_language">
+                                    <option value='en' selected>
+                                        Английский
+                                    </option>
+                                    <option value='ru'>
+                                        Русский
+                                    </option>
+                                    <option value='av'>
+                                        Узбекский(Кириллица)
+                                    </option>
+                                    <option value='az'>
+                                        Азербайджанский
+                                    </option>
+                                    <option value='fa'>
+                                        Персидский
+                                    </option>
+                                    <option value='ka'>
+                                        Грузинский
+                                    </option>
+                                    <option value='uz'>
+                                        Узбекский
+                                    </option>
+                                    <option value='tk'>
+                                        Туркменский
+                                    </option>
+                                    <option value='it'>
+                                        Итальянский
+                                    </option>
+                                    <option value='me'>
+                                        Черногорский
+                                    </option>
+                                    <option value='de'>
+                                        Немецкий
+                                    </option>
+                                    <option value='sr'>
+                                        Сербский
+                                    </option>
+                                    <option value='tg'>
+                                        Туркменский
+                                    </option>
+                                    <option value='ar'>
+                                        Арабский
+                                    </option>
+                                    <option value='ky'>
+                                        Киргизский
+                                    <option value='hy'>
+                                        Армянский
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Выберите языки</label> <br>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value='en' checked/>Английский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="ru" checked>Русский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="ar">Арабский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="tg">Таджикский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="av">Узбекский(Кириллица)
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="az">Азербайджанский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="fa">Персидский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="ka">Грузинский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="uz">Узбекский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="tk">Туркменский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="sr">Сербский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="me">Черногорский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="it">Итальянский
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="de">Немецкий
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="lang" value="hy">Армянский
+                                </label>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../static/styles/js/jquery.js"></script>
+<script src="../static/js/create.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../static/styles/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

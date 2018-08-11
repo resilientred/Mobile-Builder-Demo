@@ -1,0 +1,1 @@
+ fastlane sigh manage -p "^karrida" --force
